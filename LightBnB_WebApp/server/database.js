@@ -31,8 +31,14 @@ const getUserWithEmail = function (email) {
     .query(`SELECT id, name, email, password
   FROM users
   WHERE users.email = $1;`, [email])
-    .then((result) => result.rows[0])
-    .catch(() => null);
+    .then((result) => {
+      if (result.rows[0]) {
+        return result.rows[0];
+      } else {
+        return null;
+      }
+    })
+    .catch((err) => console.log('Error:', err));
 };
 
 exports.getUserWithEmail = getUserWithEmail;
@@ -47,8 +53,15 @@ const getUserWithId = function(id) {
     .query(`SELECT id, name, email, password
   FROM users
   WHERE users.id = $1;`, [id])
-    .then((result) => result.rows[0])
-    .catch(() => null);
+    .then((result) => {
+      if (result.rows[0]) {
+        return result.rows[0];
+      } else {
+        return null;
+      }
+      
+    })
+    .catch((err) => console.log('Error:', err));
 };
 exports.getUserWithId = getUserWithId;
 
